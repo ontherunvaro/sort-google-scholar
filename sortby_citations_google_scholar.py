@@ -19,13 +19,7 @@ Before using it, please update the initial variables
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
-# Update these variables according to your requirement
-keyword = "'non intrusive load monitoring'"  # the double quote will look for the exact keyword,
-# the simple quote will also look for similar keywords
-number_of_results = 100  # number of results to look for on Google Scholar
-save_database = False  # choose if you would like to save the database to .csv
-path = '/tmp/foo.csv'  # path to save the data
+import argparse
 
 
 def get_citations(content):
@@ -58,6 +52,24 @@ def get_author(content):
 
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description='Search Google Scholar and order by citations')
+
+    parser.add_argument('query', action='store', help='the query to search')
+    parser.add_argument('-n', action="store", dest='count', type=int, default=100,
+                        help='number of articles to fetch, 100 by default')
+    parser.add_argument('-f', action="store", dest="filename", help='store the resulting database in FILENAME')
+
+    input_args = parser.parse_args()
+
+    keyword = input_args.query
+    number_of_results = input_args.count
+
+    save_database = False
+    if (input_args.filename is not None):
+        save_database = True
+        path = input_args.filename
+
     # Start new session
     session = requests.Session()
 
