@@ -18,7 +18,6 @@ Before using it, please update the initial variables
 
 import requests
 from bs4 import BeautifulSoup
-import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -106,12 +105,6 @@ data.index.name = 'Rank'
 
 data_ranked = data.sort_values('Citations', ascending=False)
 print(data_ranked)
-
-# Plot by citation number
-plt.plot(rank[1:], citations, '*')
-plt.ylabel('Number of Citations')
-plt.xlabel('Rank of the keyword on Google Scholar')
-plt.title('Keyword: ' + keyword)
 
 # Save results
 if save_database:
