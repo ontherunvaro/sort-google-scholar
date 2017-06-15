@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 This code creates a database with a list of publications data from Google 
@@ -100,12 +100,12 @@ for n in range(0, number_of_results, 10):
         rank.append(rank[-1] + 1)
 
 # Create a dataset and sort by the number of citations
-data = pd.DataFrame(zip(author, title, citations, year, links), index=rank[1:],
+data = pd.DataFrame(list(zip(author, title, citations, year, links)), index=rank[1:],
                     columns=['Author', 'Title', 'Citations', 'Year', 'Source'])
 data.index.name = 'Rank'
 
 data_ranked = data.sort_values('Citations', ascending=False)
-print data_ranked
+print(data_ranked)
 
 # Plot by citation number
 plt.plot(rank[1:], citations, '*')
